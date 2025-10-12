@@ -3,7 +3,8 @@
   "name": "My First Extension",
   "version": "1.0",
   "description": "크롬 확장 기본 틀 예제",
-  "permissions": ["contextMenus", "tabs"],
+  "permissions": ["contextMenus", "tabs", "scripting"],
+  "host_permissions": ["<all_urls>"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
