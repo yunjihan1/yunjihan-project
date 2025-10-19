@@ -20,6 +20,8 @@ chrome.contextMenus.onClicked.addListener((info, tab) => { // 우클릭메뉴를
   if (info.linkUrl.includes("login") || info.linkUrl.includes("verify") || info.linkUrl.includes("bank") || info.linkUrl.includes("secure") || info.linkUrl.includes("account")) score += 10; // url에 login, verify, bank, secure, account가 포함되있으면 10점 추가
   if (info.linkUrl.includes(".xyz") || info.linkUrl.includes(".tk") || info.linkUrl.includes(".top") || info.linkUrl.includes(".ru") || info.linkUrl.includes(".zip")) score += 10; // url에 .xyz, .tk, .top, .ru, .zip가 포함되있으면 10점 추가
   if (info.linkUrl.includes("bit.ly") || info.linkUrl.includes("tinyurl")) score += 15; // url에 bit.ly, tinyurl이 포함되있으면 15점 추가
+  if (/https?:\/\/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/.test(info.linkUrl)) score += 15 //url이 https(사이에아무문자)//수.수.수.수 꼴이라면 15점 추가(단 수는 최소 1자리에서 최대 3자리)
+  if (info.linkUrl.includes("xn--")) score += 10 // url에 xn--이 포함되어있으면 10점 추가
   
   chrome.scripting.executeScript({ // 코드(파일)을 실행
     target: { tabId: tab.id }, // 실행시킬 탭(프레임)을 지정
