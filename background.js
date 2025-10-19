@@ -15,13 +15,31 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => { // 우클릭 메뉴를 등록(info: 클릭한 링크에 대한 정보, tab: 그 링크가 들어있는 탭에 대한 정보)
-if (info.linkUrl.length < 50) //url의 글자수가 50자보다 적을때
+if (info.linkUrl.length < 99999) //url의 글자수가 50자보다 적을때
     chrome.scripting.executeScript({ // 코드(파일)을 실행
       target: { tabId: tab.id }, // 실행시킬 탭(프레임)을 지정
-      args: [score],
+      args: [score], // 변수 score을 args로 넘김
       func: (score) => { // 주요 함수(main)
         score += 10 //점수에 10을 더함
         alert(score) // 점수를 알림으로 띄어줌
+      }
+    })
+if (info.linkUrl.includes("h"))
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      args: [score],
+      func: (score) => {
+        score += 10
+        alert(score)
+      }
+    })
+if (info.linkUrl.includes("a") || info.linkUrl.includes("b") || info.linkUrl.includes("c") || info.linkUrl.includes("d") || info.linkUrl.includes("e"))
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      args: [score],
+      func: (score) => {
+        score += 10
+        alert(score)
       }
     })
 })
