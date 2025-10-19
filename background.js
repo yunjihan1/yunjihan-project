@@ -14,32 +14,16 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
-chrome.contextMenus.onClicked.addListener((info, tab) => { // 우클릭 메뉴를 등록(info: 클릭한 링크에 대한 정보, tab: 그 링크가 들어있는 탭에 대한 정보)
-if (info.linkUrl.length < 99999) //url의 글자수가 50자보다 적을때
-    chrome.scripting.executeScript({ // 코드(파일)을 실행
-      target: { tabId: tab.id }, // 실행시킬 탭(프레임)을 지정
-      args: [score], // 변수 score을 args로 넘김
-      func: (score) => { // 주요 함수(main)
-        score += 10 //점수에 10을 더함
-        alert(score) // 점수를 알림으로 띄어줌
-      }
-    })
-if (info.linkUrl.includes("h"))
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      args: [score],
-      func: (score) => {
-        score += 10
-        alert(score)
-      }
-    })
-if (info.linkUrl.includes("a") || info.linkUrl.includes("b") || info.linkUrl.includes("c") || info.linkUrl.includes("d") || info.linkUrl.includes("e"))
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      args: [score],
-      func: (score) => {
-        score += 10
-        alert(score)
-      }
-    })
+chrome.contextMenus.onClicked.addListener((info, tab) => { // 우클릭메뉴를 등록(info: 링크에 대한 정보, tab: 그 링크가 들어있는 탭에 대한 정보)
+  if (info.linkUrl.length > 100) score += 10; // url의 글자수가 100이 넘어가면 10점 추가
+  if (info.linkUrl.includes("@")) score += 10; // url에 @가 포함되있으면 10점 추가
+  if (info.linkUrl.includes("login") || info.linkUrl.includes("verify") || info.linkUrl.includes("bank") || info.linkUrl.includes("secure") || info.linkUrl.includes("account")) score += 10; // url에 login, verify, bank, secure, account가 포함되있으면 10점 추가
+  if (info.linkUrl.includes(".xyz") || info.linkUrl.includes(".tk") || info.linkUrl.includes(".top") || info.linkUrl.includes(".ru") || info.linkUrl.includes(".zip")) score += 10; // url에 .xyz, .tk, .top, .ru, .zip가 포함되있으면 10점 추가
+  if (info.linkUrl.includes("bit.ly") || info.linkUrl.includes("tinyurl")) score += 15; // url에 bit.ly, tinyurl이 포함되있으면 15점 추가
+  
+  chrome.scripting.executeScript({ // 코드(파일)을 실행
+    target: { tabId: tab.id }, // 실행시킬 탭(프레임)을 지정
+    args: [score], // score을 args로 넘김
+    func: (score) => alert(score) // 메인 함수(score을 알리는 함수)
+  })
 })
