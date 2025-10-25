@@ -3,8 +3,7 @@
   "name": "링크 검사",
   "version": "1.0",
   "description": "링크를 우클릭하면 유효성을 검사해 점수화하여 링크가 위험한지 안전한지 알려준다",
-  "permissions": ["contextMenus", "tabs", "scripting"],
-  "host_permissions": ["<all_urls>"],
+  "permissions": ["contextMenus", "activeTab", "scripting"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
