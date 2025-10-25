@@ -15,6 +15,7 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => { // 우클릭메뉴를 등록(info: 링크에 대한 정보, tab: 그 링크가 들어있는 탭에 대한 정보)
+  score = 0;
   if (info.linkUrl.length > 100) score += 10; // url의 글자수가 100이 넘어가면 10점 추가
   if (info.linkUrl.includes("@")) score += 10; // url에 @가 포함되있으면 10점 추가
   if (info.linkUrl.includes("login") || info.linkUrl.includes("verify") || info.linkUrl.includes("bank") || info.linkUrl.includes("secure") || info.linkUrl.includes("account")) score += 10; // url에 login, verify, bank, secure, account가 포함되있으면 10점 추가
@@ -28,4 +29,5 @@ chrome.contextMenus.onClicked.addListener((info, tab) => { // 우클릭메뉴를
     args: [score], // score을 args로 넘김
     func: (score) => alert(score) // 메인 함수(score을 알리는 함수)
   })
+
 })
