@@ -24,10 +24,19 @@ chrome.contextMenus.onClicked.addListener((info, tab) => { // 우클릭메뉴를
   if (/https?:\/\/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/.test(info.linkUrl)) score += 15 //url이 https(사이에아무문자)//수.수.수.수 꼴이라면 15점 추가(단 수는 최소 1자리에서 최대 3자리)
   if (info.linkUrl.includes("xn--")) score += 10 // url에 xn--이 포함되어있으면 10점 추가
   
+  reslut = ''
+  if (score <= 20) {
+    result = "안전"
+  } else if (score <= 40) {
+    result = "주의"
+  } else {
+    result = "경고"
+  }
+
   chrome.scripting.executeScript({ // 코드(파일)을 실행
     target: { tabId: tab.id }, // 실행시킬 탭(프레임)을 지정
-    args: [score], // score을 args로 넘김
-    func: (score) => alert(score) // 메인 함수(score을 알리는 함수)
+    args: [result], // score을 args로 넘김
+    func: (result) => alert(result) // 메인 함수(score을 알리는 함수)
   })
 
 })
