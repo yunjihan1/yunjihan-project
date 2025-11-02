@@ -68,3 +68,4 @@ chrome.contextMenus.onClicked.addListener((info, tab) => { // 우클릭메뉴를
   })
 
 })
+
